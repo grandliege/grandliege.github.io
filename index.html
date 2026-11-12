@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Grand Liège — la newsletter des 24 communes</title>
+<meta name="description" content="Chaque jeudi : ce qui ouvre, ce qui bouge et les bons plans du week-end dans les 24 communes du Grand Liège. Gratuit.">
+<meta property="og:title" content="Grand Liège — la newsletter des 24 communes">
+<meta property="og:description" content="Ce qui ouvre, ce qui bouge et les bons plans du week-end, chaque jeudi. Gratuit.">
+<meta property="og:image" content="https://grandliege.github.io/og.jpg">
+<meta property="og:type" content="website">
+<link rel="icon" href="icon.png">
+<style>
+  :root { --red:#C8102E; --yellow:#FFD100; --ink:#111; --cream:#FAF7F0; --muted:#5f5a52; }
+  * { box-sizing:border-box; }
+  body { margin:0; background:var(--cream); color:var(--ink);
+         font-family:"Avenir Next","Avenir",-apple-system,"Segoe UI",Helvetica,Arial,sans-serif; line-height:1.5; }
+  .hero { position:relative; }
+  .hero img { width:100%; max-height:420px; object-fit:cover; display:block; }
+  main { max-width:560px; margin:0 auto; padding:28px 18px 40px; }
+  .tag { display:inline-block; background:var(--red); color:var(--yellow); font-weight:900;
+         letter-spacing:.5px; padding:4px 12px; border-radius:8px; font-size:14px; }
+  h1 { font-size:clamp(28px,7vw,40px); line-height:1.12; margin:14px 0 12px; font-weight:900; }
+  .lead { font-size:18px; color:var(--muted); margin:0 0 22px; }
+  ul { list-style:none; padding:0; margin:0 0 26px; }
+  li { padding:10px 0 10px 34px; position:relative; font-weight:600; border-bottom:1px solid #e8e1d3; }
+  li::before { content:""; position:absolute; left:4px; top:16px; width:14px; height:14px; border-radius:4px; background:var(--red); }
+  form { display:flex; flex-direction:column; gap:10px; }
+  input[type=email] { font:inherit; font-size:17px; padding:15px 16px; border:2px solid #d9d1c2; border-radius:12px; background:#fff; }
+  input[type=email]:focus { outline:none; border-color:var(--red); }
+  button { font:inherit; font-size:18px; font-weight:800; padding:15px; border:0; border-radius:12px;
+           background:var(--red); color:#fff; cursor:pointer; }
+  button:hover { filter:brightness(1.08); }
+  .consent { font-size:13px; color:var(--muted); display:flex; gap:8px; align-items:flex-start; }
+  .small { font-size:13px; color:var(--muted); margin-top:10px; }
+  .ok { display:none; background:#fff; border-left:6px solid var(--red); padding:16px; border-radius:10px; font-weight:600; }
+  footer { max-width:560px; margin:0 auto; padding:0 18px 40px; font-size:13px; color:var(--muted); }
+  footer a { color:var(--red); }
+  .social { font-weight:800; color:var(--ink); }
+</style>
+</head>
+<body>
+<div class="hero"><img src="header.jpg" alt="Panorama de Liège — Grand Liège, les 24 communes, un seul média"></div>
+<main>
+  <span class="tag">GRAND LIÈGE</span>
+  <h1>Le Grand Liège dans ta boîte mail, chaque jeudi</h1>
+  <p class="lead">Ce qui ouvre, ce qui bouge et les bons plans du week-end dans les 24 communes. 3 minutes de lecture, gratuit.</p>
+  <ul>
+    <li>Les nouvelles adresses avant tout le monde</li>
+    <li>Le week-end en 6 idées, même s'il pleut</li>
+    <li>Une commune à (re)découvrir chaque semaine</li>
+  </ul>
+
+  <form id="f" action="https://app.kit.com/forms/10182016/subscriptions" method="post">
+    <input type="email" name="email_address" placeholder="ton adresse e-mail" required autocomplete="email" aria-label="Adresse e-mail">
+    <label class="consent"><input type="checkbox" required> J'accepte de recevoir la newsletter Grand Liège. Désinscription en un clic à tout moment.</label>
+    <button type="submit">Je m'abonne</button>
+  </form>
+  <div class="ok" id="ok">C'est presque fait ! Confirme ton inscription dans le mail qu'on vient de t'envoyer (regarde aussi les spams). À jeudi !</div>
+  <p class="small">Gratuit · Zéro spam · <a href="confidentialite.html">Confidentialité</a></p>
+</main>
+<footer>
+  Suis-nous sur Instagram et TikTok : <span class="social">@grandliege</span><br>
+  Tu ouvres un commerce ou tu organises un événement dans le Grand Liège ? <a href="mailto:grandliege.media@gmail.com">Écris-nous</a>.
+</footer>
+<script>
+  // Envoi sans quitter la page ; si le navigateur bloque, le formulaire classique prend le relais.
+  document.getElementById("f").addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const f = e.target;
+    try {
+      const r = await fetch(f.action, { method: "POST", body: new FormData(f), headers: { Accept: "application/json" } });
+      if (!r.ok) throw new Error(r.status);
+      f.style.display = "none";
+      document.getElementById("ok").style.display = "block";
+    } catch (err) {
+      f.submit();
+    }
+  });
+</script>
+</body>
+</html>
